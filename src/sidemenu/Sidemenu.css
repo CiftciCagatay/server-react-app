@@ -1,0 +1,30 @@
+.sidemenuTitle {
+  background-color: grey;
+  color: white;
+}
+
+.sidemenu-button {
+  background-color: rgb(150, 150, 150);
+  height: 100vh;
+  width: 1px;
+  float: left;
+  transition: width 0.1s;
+}
+
+.sidemenu-button:hover {
+  background-color: rgb(120, 120, 120);
+  width: 5px;
+}
+
+.sidemenuItem {
+  padding: 20px;
+  background-color: white;
+  list-style-type: none;
+  color: black;
+}
+
+.sidemenuItem:hover {
+  background-color: rgb(150, 150, 150);
+  color: white;
+  text-decoration-line: none;
+}
