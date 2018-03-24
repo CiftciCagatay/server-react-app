@@ -1,7 +1,6 @@
 import React from 'react'
 import MaterialTitlePanel from './material_title_panel'
 import PropTypes from 'prop-types'
-
 import { Link } from 'react-router-dom'
 
 const styles = {
@@ -16,51 +15,59 @@ const styles = {
     textDecoration: 'none'
   },
   divider: {
-    margin: '8px 0',
     height: 1,
     backgroundColor: '#757575'
   },
   content: {
-    padding: '16px',
     height: '100%',
     backgroundColor: 'white'
+  },
+  contentHeaderMenuLink: {
+    textDecoration: 'none',
+    color: 'white',
+    padding: 8
   }
 }
 
-const SidebarContent = props => {
-  const style = props.style
-    ? { ...styles.sidebar, ...props.style }
-    : styles.sidebar
+const sideMenuMainItems = [
+  { title: 'Ana Sayfa', path: '/' },
+  { title: 'Raporlar', path: '/reports' }
+]
+
+const sideMenuItems = [
+  { title: 'Ayarlar', path: '/settings' },
+  { title: 'Hakkında', path: '/about' },
+  { title: 'İletişim', path: '/contact' }
+]
+
+const renderMenuItem = ({ onPressMenuItem, title, path }) => {
+  return (
+    <Link className="sidemenuItem" key={title} onClick={() => onPressMenuItem(title)} to={path}>
+      <li>{title}</li>
+    </Link>
+  )
+}
+
+const SidebarContent = ({ style, onPressMenuItem }) => {
+  const panelStyle = style ? { ...styles.sidebar, ...style } : styles.sidebar
+
+  const header = (
+    <span>
+      <span>Cihaz Takip</span>
+    </span>
+  )
 
   return (
-    <MaterialTitlePanel title="Menu" style={style}>
+    <MaterialTitlePanel title={header} style={panelStyle}>
       <div style={styles.content}>
         <ul className="list-group">
-          <Link onClick={props.closeDrawer} to="/">
-            <li className="list-group-item list-group-item-action">
-              Ana Sayfa
-            </li>
-          </Link>
-
-          <Link onClick={props.closeDrawer} to="/reports">
-            <li className="list-group-item list-group-item-action">Raporlar</li>
-          </Link>
+          {sideMenuMainItems.map(item => renderMenuItem({ onPressMenuItem, ...item }))}
         </ul>
 
         <div style={styles.divider} />
 
         <ul className="list-group">
-          <Link onClick={props.closeDrawer} to="/settings">
-            <li className="list-group-item list-group-item-action">Ayarlar</li>
-          </Link>
-
-          <Link onClick={props.closeDrawer} to="/about">
-            <li className="list-group-item list-group-item-action">Hakkında</li>
-          </Link>
-
-          <Link onClick={props.closeDrawer} to="/contact">
-            <li className="list-group-item list-group-item-action">İletişim</li>
-          </Link>
+          {sideMenuItems.map(item => renderMenuItem({ onPressMenuItem, ...item }))}
         </ul>
       </div>
     </MaterialTitlePanel>
